@@ -26,6 +26,25 @@ pub fun serializeStringArray(_ lines: [String]): String {
   return buffer
 }
 
+// pub fun addLine(text: String):String{
+//   var newText = ""
+//   newText = text.concat("|")
+//   return newText
+// }
+
+pub fun display(canvas: Canvas){
+  let border = "+-----+"
+  let line = "|"
+  
+  log(border)
+  log(line.concat(canvas.pixels.slice(from: 0, upTo: 5).concat(line))) 
+  log(line.concat(canvas.pixels.slice(from: 5, upTo: 10).concat(line)))
+  log(line.concat(canvas.pixels.slice(from: 10, upTo: 15).concat(line))) 
+  log(line.concat(canvas.pixels.slice(from: 15, upTo: 20).concat(line))) 
+  log(line.concat(canvas.pixels.slice(from: 20, upTo: 25).concat(line))) 
+  log(border)
+}
+
 pub resource Picture {
 
   pub let canvas: Canvas
@@ -48,7 +67,9 @@ pub fun main() {
     height: 5,
     pixels: serializeStringArray(pixelsX)
   )
+ 
   let letterX <- create Picture(canvas: canvasX)
   log(letterX.canvas)
+  display(canvas: canvasX)
   destroy letterX
 }
