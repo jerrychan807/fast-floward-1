@@ -35,7 +35,7 @@ pub fun serializeStringArray(_ lines: [String]): String {
 pub fun display(canvas: Canvas){
   let border = "+-----+"
   let line = "|"
-  
+
   log(border)
   log(line.concat(canvas.pixels.slice(from: 0, upTo: 5).concat(line))) 
   log(line.concat(canvas.pixels.slice(from: 5, upTo: 10).concat(line)))
@@ -54,6 +54,28 @@ pub resource Picture {
   }
 }
 
+pub resource Printer {
+  pub let existList: [String] 
+
+  init(existList:[String]){
+    self.existList = existList
+  }
+  
+  pub fun print(canvas: Canvas): @Picture? {
+    if self.existList.contains(canvas.pixels) == false {
+      // unique
+      let picture <- create Picture(canvas: canvas)
+      display(canvas: picture.canvas)
+      self.existList.append(canvas.pixels)
+      return <- picture
+    }else
+    {
+      log("canvas duplicate")
+      return nil
+    }
+  }
+}
+
 pub fun main() {
   let pixelsX = [
     "*   *",
@@ -67,9 +89,21 @@ pub fun main() {
     height: 5,
     pixels: serializeStringArray(pixelsX)
   )
- 
-  let letterX <- create Picture(canvas: canvasX)
-  log(letterX.canvas)
+  
+  log("W1Q1")
+  // let letterX <- create Picture(canvas: canvasX)
+  // log(letterX.canvas)
+
   display(canvas: canvasX)
-  destroy letterX
+ 
+
+  log("W1Q2")
+  let printer <- create Printer(existList:[""])
+  let picture1 <- printer.print(canvas: canvasX)
+  let picture2 <- printer.print(canvas: canvasX)
+  destroy printer
+  destroy picture1
+  destroy picture2
+  // destroy letterX
+
 }
