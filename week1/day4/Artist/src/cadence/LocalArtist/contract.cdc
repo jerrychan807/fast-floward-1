@@ -5,7 +5,7 @@ pub contract LocalArtist {
   pub event PicturePrintFailure(pixels: String)
   pub event PictureDeposit(pixels: String)
   pub event CollectionCreated()
-
+  // foolisheddy
   // A structure that will store a two dimensional canvas made up of ASCII
   // characters (usually one character to indicate an on pixel, and one for off).
   pub struct Canvas {
