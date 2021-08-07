@@ -320,11 +320,34 @@ These quests also won't cover contract interfaces or post/pre-conditions because
 
 Look at the w2q1 folder. For this quest, you will be looking at 4 variables (a, b, c, d) and 3 functions (publicFunc, privateFunc, contractFunc) defined in some_contract.cdc. You will see I've marked 4 different areas (#1, #2, #3 in some_contract.cdc, and #4 in some_script.cdc) where I want you to answer the following task: For each variable (a, b, c, and d), tell me in which areas they can be read (read scope) and which areas they can be modified (write scope). For each function (publicFunc, contractFunc, and privateFunc), simply tell me where they can be called.
 
+
 Ex. In Area 1:
 1. Variables that can be read: a and c.
 2. Variables that can be modified: d.
 3. Functions that can be accessed: publicFunc and privateFunc
 Note: this is very wrong ^, haha!
+
+My Answer:
+In Area 1:
+1. Variables that can be read: a b c d.
+2. Variables that can be modified: a b c d.
+3. Functions that can be accessed: publicFunc privateFunc contractFunc
+
+In Area 2:
+1. Variables that can be read: a b c.
+2. Variables that can be modified: a.
+3. Functions that can be accessed: publicFunc contractFunc
+
+In Area 3:
+1. Variables that can be read: a b c.
+2. Variables that can be modified: a.
+3. Functions that can be accessed: publicFunc contractFunc
+
+In Area 4:
+1. Variables that can be read: a b
+2. Variables that can be modified: a
+3. Functions that can be accessed: publicFunc
+
 
 - `W2Q2` – Dappiness
 
