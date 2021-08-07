@@ -72,10 +72,10 @@ pub contract LocalArtistMarket {
 
       emit ItemPosted(seller: seller, pixels: canvas.pixels)
     }
-    pub fun withdraw(listingIndex: Int, to seller: Address) {
+    pub fun withdraw(listingIndex: Int, to seller: Address) { //回收
       let listing = self.listings[listingIndex]
       if listing.seller == seller {
-        self.listings.remove(at: listingIndex)
+        self.listings.remove(at: listingIndex) // 
         let picture <- self.pictures.remove(key: listing.canvas.pixels)!
 
         emit ItemWithdrawn(seller: seller, pixels: listing.canvas.pixels)
@@ -91,9 +91,9 @@ pub contract LocalArtistMarket {
     pub fun buy(listing listingIndex: Int, with tokenVault: @FungibleToken.Vault, buyer: Address) {
       pre {
         self.listings[listingIndex] != nil
-        : "Listing no longer exists."
+        : "Listing no longer exists." // 检测是否有货
         tokenVault.balance >= self.listings[listingIndex].price
-        : "Not enough FLOW to complete purchase."
+        : "Not enough FLOW to complete purchase." // 检测余额是否足够
       }
 
       let listing = self.listings.remove(at: listingIndex)
@@ -110,8 +110,8 @@ pub contract LocalArtistMarket {
 
       emit ItemSold(seller: listing.seller, pixels: listing.canvas.pixels, buyer: buyer)
 
-      sellerVault.deposit(from: <- tokenVault)
-      buyerCollection.deposit(picture: <- self.pictures.remove(key: listing.canvas.pixels)!)
+      sellerVault.deposit(from: <- tokenVault) // 卖家余额增加
+      buyerCollection.deposit(picture: <- self.pictures.remove(key: listing.canvas.pixels)!) //买家获得nft
     }
   }
 
